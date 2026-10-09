@@ -1,0 +1,116 @@
+\documentclass[psamsfonts]{amsart}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage[all,arc]{xy}
+\usepackage{enumerate}
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+%--------Theorem Environments--------
+%theoremstyle{plain} --- default
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{cor}[theorem]{Corollary}
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{lem}[theorem]{Lemma}
+\newtheorem{conj}[theorem]{Conjecture}
+\newtheorem{quest}[theorem]{Question}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{defns}[theorem]{Definitions}
+\newtheorem{con}[theorem]{Construction}
+\newtheorem{exmp}[theorem]{Example}
+\newtheorem{exmps}[theorem]{Examples}
+\newtheorem{notn}[theorem]{Notation}
+\newtheorem{notns}[theorem]{Notations}
+\newtheorem{addm}[theorem]{Addendum}
+\newtheorem{exer}[theorem]{Exercise}
+
+\theoremstyle{remark}
+\newtheorem{rem}[theorem]{Remark}
+\newtheorem{rems}[theorem]{Remarks}
+\newtheorem{warn}[theorem]{Warning}
+\newtheorem{sch}[theorem]{Scholium}
+\usepackage{listings}
+\makeatletter
+\let\c@equation\c@theorem
+\newcommand{\comm}[1]{}
+\makeatother
+\numberwithin{equation}{section}
+\bibliographystyle{plain}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+\begin{document}
+%--------Meta Data: Fill in your info------
+\title{Good and Increasing Decompositions of  Permutations}
+
+\author{Aly Soliman}
+
+\maketitle
+\section{Definitions}
+Let $n\geq 1$ and let $[n]$ denote $\{1,\ldots,n\}$. For $i,j\in [n]$, let $\tau_{ij}$ denote the transposition swapping $i$ and $j$ - we call $i$ and $j$ the \textit{endpoints} of $\tau_{ij}$. For a collection of transpositions $C$, let $S_C=\{i\mid \tau_{ij}\in C \text{ for some }j\text{ and }i<j\}$ and $L_C=\{j\mid \tau_{ij}\in C \text{ for some }i\text{ and }i<j\}$. In other words, $S$ and $L$ are the sets of small and large endpoints occurring in $C$, respectively. We say a collection of transpositions $C$ is \textit{good} if $S_C\cap L_C=\emptyset$. For a permutation $\pi$, let
+\[\text{inv}(\pi)=\{(i,j)\mid i < j\text{ and } \pi(i)>\pi(j)\},\]
+and
+ $\ell(\pi)$ denote the length of $\pi$ (i.e. $\ell(\pi)=\#\text{inv}(\pi)$).
+\section{Problem}
+For every permutation $\pi$, there is a good collection of transpositions that can be ordered as $\tau_1,\ldots,\tau_k$ so that $\pi=\tau_1\circ\ldots\circ\tau_k$ and the sequence of lengths $\ell(\tau_1)<\ell(\tau_1\circ\tau_2)<\ldots<\ell(\tau_1\circ\ldots\circ\tau_k)$ is strictly increasing.
+
+\section{Solution}
+For an $n$-permutation $\pi$, define \[S(\pi)=\{i\in [n]\mid \pi(i)>i\}\text{ and }L(\pi)=\{i\in [n]\mid \pi(i)<i\}.\]
+We will prove the following stronger statement.
+\begin{theorem}\label{thm}
+For any $n$-permutation $\pi$ that's not the identity, there is a good collection $C=\{\tau_i\}_{i=1}^k$ that can be ordered so that $\pi=\tau_1\circ\ldots\circ\tau_k$ and the sequence of lengths $\ell(\tau_1)<\ell(\tau_1\circ\tau_2)<\ldots<\ell(\tau_1\circ\ldots\circ\tau_k)$ is strictly increasing, and such that $S_C=S(\pi)$ and $L_C=L(\pi)$.
+\end{theorem}
+Before we can prove the this statement, we need the following lemmas.
+\begin{lem}\label{lemma1}
+Let $\pi$ be an $n$-permutation that's not the identity function (hence trivially $L(\pi)\neq \emptyset$). Let $j=\max L(\pi)$. If $i\leq j$ then $\pi(i)\leq j$.
+\end{lem}
+\begin{proof}
+Suppose that $\pi(i)>j$. Define the sequence $(z_t)_{t\geq 0}$ as $z_0=i$ and $z_{t+1}=\pi(z_t)$. It's clear that $z_1=\pi(i)>j$. Suppose $z_t>j$ for some $t\geq 1$. Then $z_t$ is larger than any element in $L(\pi)$, and so $z_{t+1}=\pi(z_t)\geq z_t>j$. Hence, inductively, $z_t>j$ for all $t\geq 1$. However, the orbit of $z_0$ under $\pi$ is finite, and so $i=z_0=z_t>j$ for some $t\geq 1$, which contradicts our initial assumption that $i\leq j$. 
+\end{proof}
+\begin{lem}\label{lemma2}
+Let $\pi$ be an $n$-permutation that's not the identity function. Then there are $i,j$ such that $i\leq \pi(j)<\pi(i)\leq j$ and $\ell(\pi^*)<\ell(\pi)$ for $\pi^*=\pi\circ \tau_{ij}$.
+\end{lem}
+\begin{proof}
+Since $\pi$ is not the identity, $L(\pi)\neq \emptyset$. Let $j=\max L(\pi)$.
+Note that $\pi(j)<j$ since $j\in L(\pi)$, and so $j\notin [1,\pi(j)]$ and $\pi(j)\in [1,\pi(j)]$.
+If $1\leq \pi(t)\leq\pi(j)$ for all $1\leq t\leq\pi(j)$ then $\pi$ restrict to a permutation of $[1,\pi(j)]$, but that cannot be the case since $j\notin [1,\pi(j)]$ and $\pi(j)\in[1,\pi(j)]$. Hence, there must be some $t$ such that $1\leq t \leq \pi(j)<\pi(t)$. Note that $t\leq \pi(j)<j$, and so, by Lemma \ref{lemma1}, we have 
+\[1\leq t \leq \pi(j)<\pi(t)\leq j.\]
+Let $i=\min\{t\mid 1\leq t \leq \pi(j)<\pi(t)\leq j\}$.
+\\
+\\
+Let $\pi^*=\pi\circ\tau_{ij}$. Note that $(i,j)$ is in $\text{inv}(\pi)$ but not in $\text{inv}(\pi^*)$. Any element that is not in $\text{inv}(\pi)$ but is in $\text{inv}(\pi^*)$ must be of the form $(p,i)$, $(i,p)$, $(j,p)$, $(p,j)$ for some $p\notin \{i,j\}$. 
+\\
+\\
+Suppose $i<p$. Then $(i,p)\notin \text{inv}(\pi)$ implies $\pi(p)>\pi(i)$ and $(i,p)\in \text{inv}(\pi^*)$ implies $\pi(j)>\pi(p)$. This would imply $\pi(i)<\pi(p)<\pi(j)$ contradicting the fact that $\pi(j)<\pi(i)$. 
+\\
+\\
+Suppose $p<j$. Then $(p,j)\notin \text{inv}(\pi)$ implies $\pi(j)>\pi(p)$ and $(p,j)\in \text{inv}(\pi^*)$ implies $\pi(i)<\pi(p)$, giving the same contradiction as before.
+\\
+\\
+Suppose $p<i$. Then $(p,i)\notin \text{inv}(\pi)$ implies $\pi(p)<\pi(i)$ and $(p,i)\in \text{inv}(\pi^*)$ implies $\pi(j)<\pi(p)$. This means that $p<i\leq \pi(j)<\pi(p)<\pi(i)\leq j$, and so $p\leq \pi(j)<\pi(p)\leq j$. However, this is impossible since $$p<i=\min\{t\mid 1\leq t \leq \pi(j)<\pi(t)\leq j\}.$$
+\\
+Suppose $j<p$. Then $(j,p)\notin \text{inv}(\pi)$ implies $\pi(j)<\pi(p)$ and $(j,p)\in \text{inv}(\pi^*)$ implies $\pi(i)>\pi(p)$. Furthermore, $\pi(p)\geq p$ since $p>j=\max L(\pi)$. This means that $p\leq \pi(p)<\pi(i)\leq j$ which contradicts our initial assumption that $j<p$.
+\\
+\\
+Hence, there are no elements in $\text{inv}(\pi^*)$ that are not in $\text{inv}(\pi)$, and so $\text{inv}(\pi^*)$ is a subset of $\text{inv}(\pi)$. It is a strict subset since $(i,j)$ is removed. Hence, $\ell(\pi^*)<\ell(\pi)$.
+\end{proof}
+Now we are ready to prove the main result \ref{thm}.
+\begin{proof}
+We will induct on $\ell(\pi)$. The base case $\ell(\pi)=1$ is trivial ($\pi$ is a transposition).
+Let $\ell\geq 2$ and let $\pi$ be an $n$-permutation with $\ell(\pi)=\ell$. 
+\\
+\\
+By Lemma \ref{lemma2}, there are $i,j$ such that $i\leq \pi(j)<\pi(i)\leq j$ and $\ell(\pi^*)<\ell(\pi)$ for $\pi^*=\pi\circ \tau_{ij}$.
+\\
+\\
+ By the inductive assumption, there is a good collection $C^*=\{\tau_i\}_{i=1}^k$ that can be ordered so that $\pi^*=\tau_1\circ\ldots\circ\tau_k$ and the sequence of lengths\[\ell(\tau_1)<\ell(\tau_1\circ\tau_2)<\ldots<\ell(\tau_1\circ\ldots\circ\tau_k)\] is strictly increasing, and is such that $S_{C^*}=S(\pi^*)$ and $L_{C^*}=L(\pi^*)$. Note that $i<\pi(i)$ and $i\leq \pi^*(i)=\pi(j)$,and so $i\in S(\pi)$ and $i\notin L(\pi^*)$. Similarly, we have $j>\pi(j)$ and $j\geq \pi^*(j)=\pi(i)$, and so $j\in L(\pi)$ and $j\notin S(\pi^*)$. This means that $S(\pi)=S(\pi^*)\cup\{i\}$ and $L(\pi)=L(\pi^*)\cup\{j\}$. Hence, the collection $C=C^*\cup\{\tau_{ij}\}$ with $\tau_{k+1}=\tau_{ij}$ is such that $\pi=\tau_1\circ\ldots\circ \tau_{k+1}$, the sequence of lengths\[\ell(\tau_1)<\ell(\tau_1\circ\tau_2)<\ldots<\ell(\tau_1\circ\ldots\circ\tau_{k+1})\] is strictly increasing, and is such that $S_{C}=S(\pi)$ and $L_{C}=L(\pi)$.
+\end{proof}
+\end{document}
+
